@@ -26,7 +26,7 @@ public class AC_GetInstructorDetailAndInstructorDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 2;
+			int theID = 7;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			

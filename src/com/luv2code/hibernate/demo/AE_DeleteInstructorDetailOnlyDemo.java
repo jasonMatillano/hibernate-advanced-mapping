@@ -26,7 +26,7 @@ public class AE_DeleteInstructorDetailOnlyDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 1;
+			int theID = 7;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			

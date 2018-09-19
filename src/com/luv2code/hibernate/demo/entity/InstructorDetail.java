@@ -39,13 +39,13 @@ public class InstructorDetail {
 	// add field for instructor (also getters/setters)
 	
 	@OneToOne(mappedBy="instructorDetail", // refers to instructorDetail in Instructor Class
-			cascade= {	CascadeType.DETACH,
-						CascadeType.MERGE,
-						CascadeType.PERSIST,
-						// CascadeType.REMOVE,
-						CascadeType.REFRESH
-			}
-	) 
+			cascade= {	
+					CascadeType.DETACH,
+					CascadeType.MERGE,
+					CascadeType.PERSIST,
+					// CascadeType.REMOVE,
+					CascadeType.REFRESH
+					}) 
 	
 	public Instructor instructor;
 	
