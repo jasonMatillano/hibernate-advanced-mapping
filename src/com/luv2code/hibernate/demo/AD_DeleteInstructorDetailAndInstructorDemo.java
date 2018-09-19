@@ -26,7 +26,7 @@ public class AD_DeleteInstructorDetailAndInstructorDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 2;
+			int theID = 5;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			
@@ -37,7 +37,7 @@ public class AD_DeleteInstructorDetailAndInstructorDemo {
 			 System.out.println("luv2code to delete : " + tempInsDetail.getInstructor());
 			
 			// delete instructor detail along with instructor
-			session.delete(tempInsDetail);
+			session.delete(tempInsDetail); // cascade type should be ALL, or include cascade type REMOVE in  InstructorDetail
 			
 			// commit the transaction
 			session.getTransaction().commit();
