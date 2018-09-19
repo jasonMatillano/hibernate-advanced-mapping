@@ -26,7 +26,7 @@ public class AD_DeleteInstructorDetailAndInstructorDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 7;
+			int theID = 2;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			
@@ -36,10 +36,7 @@ public class AD_DeleteInstructorDetailAndInstructorDemo {
 			// print the associated instructor
 			 System.out.println("luv2code to delete : " + tempInsDetail.getInstructor());
 			
-			// remove the link before delete
-			// tempInsDetail.getInstructor().setInstructorDetail(null);
-			
-			// delete instructor detail
+			// delete instructor detail along with instructor
 			session.delete(tempInsDetail);
 			
 			// commit the transaction
