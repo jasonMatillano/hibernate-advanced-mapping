@@ -1,4 +1,4 @@
-package com.luv2code.hibernate.demo;
+	package com.luv2code.hibernate.demo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteDemo {
+public class AD_DeleteInstructorDetailAndInstructorDemo {
 
 	public static void main(String[] args) {
 		
@@ -25,17 +25,33 @@ public class DeleteDemo {
 			// start transaction
 			session.beginTransaction();			
 			
-			// delete
-			int theId = 1;
-			Instructor theInstructor = session.get(Instructor.class, theId);
-			session.delete(theInstructor);
+			// get instructor detail object
+			int theID = 5;
+			InstructorDetail tempInsDetail = 
+					session.get(InstructorDetail.class, theID);
+			
+			// print instructor detail
+			System.out.println("luv2code to delete : " + tempInsDetail);
+			
+			// print the associated instructor
+			 System.out.println("luv2code to delete : " + tempInsDetail.getInstructor());
+			
+			// delete instructor detail along with instructor
+			session.delete(tempInsDetail); // cascade type should be ALL, or include cascade type REMOVE in  InstructorDetail
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 			
-		} finally {
+		} 
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle connection leaks
+			session.close();
+			
 			factory.close(); 
 		}
 	}
