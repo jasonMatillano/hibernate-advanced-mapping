@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class CreateDemo {
+public class AA_CreateInstructorAndDetailDemo {
 
 	public static void main(String[] args) {
 		
@@ -43,6 +43,10 @@ public class CreateDemo {
 			
 			// commit the transaction
 			session.getTransaction().commit();
+			
+			// show created objects
+			System.out.println("luv2code created : " + tempInstructor);
+			System.out.println("luv2code created : " + tempInstructor.getInstructorDetail());
 			
 			System.out.println("Done!");
 			
