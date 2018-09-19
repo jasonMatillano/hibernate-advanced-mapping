@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteDemo {
+public class AA_CreateInstructorAndDetailDemo {
 
 	public static void main(String[] args) {
 		
@@ -25,13 +25,28 @@ public class DeleteDemo {
 			// start transaction
 			session.beginTransaction();			
 			
-			// delete
-			int theId = 1;
-			Instructor theInstructor = session.get(Instructor.class, theId);
-			session.delete(theInstructor);
+			// create the objects
+			Instructor tempInstructor = 
+					new Instructor("Chad1", "Darby", "darbyluv2code.com");
+			
+			InstructorDetail tempInstructorDetail = 
+					new InstructorDetail(
+							"http://www.luv2code.com","coding and eating");
+			
+			// associate the objects
+			tempInstructor.setInstructorDetail(tempInstructorDetail);
+			
+			// save the instructor
+			session.save(tempInstructor);
+			
+			// note: tempInstructorDetail will also be saved in the database due to cascade setup
 			
 			// commit the transaction
 			session.getTransaction().commit();
+			
+			// show created objects
+			System.out.println("luv2code created : " + tempInstructor);
+			System.out.println("luv2code created : " + tempInstructor.getInstructorDetail());
 			
 			System.out.println("Done!");
 			
