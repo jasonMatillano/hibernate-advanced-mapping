@@ -26,15 +26,15 @@ public class GetInstructorDetailDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 228;
+			int theID = 2;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			
 			// print instructor detail
-			System.out.println(tempInsDetail);
+			System.out.println("luv2code : " + tempInsDetail);
 			
 			// print the associated instructor
-			System.out.println(tempInsDetail.getInstructor());
+			System.out.println("luv2code : " + tempInsDetail.getInstructor());
 			
 			// commit the transaction
 			session.getTransaction().commit();
