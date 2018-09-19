@@ -1,4 +1,4 @@
-package com.luv2code.hibernate.demo;
+	package com.luv2code.hibernate.demo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class CreateInstructorAndDetailDemo {
+public class AD_DeleteInstructorDetailAndInstructorDemo {
 
 	public static void main(String[] args) {
 		
@@ -25,28 +25,36 @@ public class CreateInstructorAndDetailDemo {
 			// start transaction
 			session.beginTransaction();			
 			
-			// create the objects
-			Instructor tempInstructor = 
-					new Instructor("Chad1", "Darby", "darbyluv2code.com");
+			// get instructor detail object
+			int theID = 12;
+			InstructorDetail tempInsDetail = 
+					session.get(InstructorDetail.class, theID);
 			
-			InstructorDetail tempInstructorDetail = 
-					new InstructorDetail(
-							"http://www.luv2code.com","coding and eating");
+			// print instructor detail
+			System.out.println(tempInsDetail);
 			
-			// associate the objects
-			tempInstructor.setInstructorDetail(tempInstructorDetail);
+			// print the associated instructor
+			System.out.println(tempInsDetail.getInstructor());
 			
-			// save the instructor
-			session.save(tempInstructor);
+			// remove the link before delete
+			tempInsDetail.getInstructor().setInstructorDetail(null);
 			
-			// note: tempInstructorDetail will also be saved in the database due to cascade setup
+			// delete instructor detail
+			session.delete(tempInsDetail);
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 			
-		} finally {
+		} 
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle connection leaks
+			session.close();
+			
 			factory.close(); 
 		}
 	}

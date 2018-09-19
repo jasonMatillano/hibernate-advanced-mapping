@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteInstructorAndInstructorDetailDemo {
+public class AB_DeleteInstructorAndInstructorDetailDemo {
 
 	public static void main(String[] args) {
 		

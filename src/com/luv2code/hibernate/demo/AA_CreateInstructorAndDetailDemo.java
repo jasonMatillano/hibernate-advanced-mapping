@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class GetInstructorDetailDemo {
+public class AA_CreateInstructorAndDetailDemo {
 
 	public static void main(String[] args) {
 		
@@ -25,30 +25,28 @@ public class GetInstructorDetailDemo {
 			// start transaction
 			session.beginTransaction();			
 			
-			// get instructor detail object
-			int theID = 2;
-			InstructorDetail tempInsDetail = 
-					session.get(InstructorDetail.class, theID);
+			// create the objects
+			Instructor tempInstructor = 
+					new Instructor("Chad1", "Darby", "darbyluv2code.com");
 			
-			// print instructor detail
-			System.out.println("luv2code : " + tempInsDetail);
+			InstructorDetail tempInstructorDetail = 
+					new InstructorDetail(
+							"http://www.luv2code.com","coding and eating");
 			
-			// print the associated instructor
-			System.out.println("luv2code : " + tempInsDetail.getInstructor());
+			// associate the objects
+			tempInstructor.setInstructorDetail(tempInstructorDetail);
+			
+			// save the instructor
+			session.save(tempInstructor);
+			
+			// note: tempInstructorDetail will also be saved in the database due to cascade setup
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 			
-		} 
-		catch (Exception exc) {
-			exc.printStackTrace();
-		}
-		finally {
-			// handle connection leaks
-			session.close();
-			
+		} finally {
 			factory.close(); 
 		}
 	}

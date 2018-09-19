@@ -1,4 +1,4 @@
-	package com.luv2code.hibernate.demo;
+package com.luv2code.hibernate.demo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteInstructorDetailAndInstructorDemo {
+public class AC_GetInstructorDetailAndInstructorDemo {
 
 	public static void main(String[] args) {
 		
@@ -26,21 +26,15 @@ public class DeleteInstructorDetailAndInstructorDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 12;
+			int theID = 2;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			
 			// print instructor detail
-			System.out.println(tempInsDetail);
+			System.out.println("luv2code : " + tempInsDetail);
 			
 			// print the associated instructor
-			System.out.println(tempInsDetail.getInstructor());
-			
-			// remove the link before delete
-			tempInsDetail.getInstructor().setInstructorDetail(null);
-			
-			// delete instructor detail
-			session.delete(tempInsDetail);
+			System.out.println("luv2code : " + tempInsDetail.getInstructor());
 			
 			// commit the transaction
 			session.getTransaction().commit();
