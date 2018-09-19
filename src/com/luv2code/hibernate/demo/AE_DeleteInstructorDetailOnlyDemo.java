@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteInstructorDetailDemo {
+public class AE_DeleteInstructorDetailOnlyDemo {
 
 	public static void main(String[] args) {
 		
@@ -26,15 +26,15 @@ public class DeleteInstructorDetailDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 12;
+			int theID = 1;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			
 			// print instructor detail
-			System.out.println(tempInsDetail);
+			System.out.println("luv2code to delete : " + tempInsDetail);
 			
 			// print the associated instructor
-			System.out.println(tempInsDetail.getInstructor());
+			System.out.println( "luv2code to unlink : " + tempInsDetail.getInstructor());
 			
 			// remove the link before delete
 			tempInsDetail.getInstructor().setInstructorDetail(null);
