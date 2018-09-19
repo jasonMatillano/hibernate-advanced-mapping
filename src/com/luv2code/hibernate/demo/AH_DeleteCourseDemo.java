@@ -8,7 +8,7 @@ import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteCourseDemo {
+public class AH_DeleteCourseDemo {
 
 	public static void main(String[] args) {
 		
