@@ -38,7 +38,7 @@ public class InstructorDetail {
 	
 	// add field for instructor (also getters/setters)
 	
-	@OneToOne(mappedBy="instructorDetail", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="instructorDetail", cascade=CascadeType.ALL) // refers to instructorDetail in Instructor Class
 	public Instructor instructor;
 	
 	public Instructor getInstructor() {
