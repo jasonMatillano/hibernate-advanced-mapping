@@ -26,18 +26,18 @@ public class AD_DeleteInstructorDetailAndInstructorDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 12;
+			int theID = 7;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			
 			// print instructor detail
-			System.out.println(tempInsDetail);
+			System.out.println("luv2code to delete : " + tempInsDetail);
 			
 			// print the associated instructor
-			System.out.println(tempInsDetail.getInstructor());
+			 System.out.println("luv2code to delete : " + tempInsDetail.getInstructor());
 			
 			// remove the link before delete
-			tempInsDetail.getInstructor().setInstructorDetail(null);
+			// tempInsDetail.getInstructor().setInstructorDetail(null);
 			
 			// delete instructor detail
 			session.delete(tempInsDetail);

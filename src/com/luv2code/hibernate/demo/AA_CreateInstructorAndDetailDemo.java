@@ -44,6 +44,10 @@ public class AA_CreateInstructorAndDetailDemo {
 			// commit the transaction
 			session.getTransaction().commit();
 			
+			// show created objects
+			System.out.println("luv2code created : " + tempInstructor);
+			System.out.println("luv2code created : " + tempInstructor.getInstructorDetail());
+			
 			System.out.println("Done!");
 			
 		} finally {
