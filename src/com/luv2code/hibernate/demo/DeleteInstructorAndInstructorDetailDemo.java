@@ -26,7 +26,7 @@ public class DeleteInstructorAndInstructorDetailDemo {
 			session.beginTransaction();			
 			
 			// delete
-			int theId = 1;
+			int theId = 2;
 			Instructor theInstructor = session.get(Instructor.class, theId);
 			session.delete(theInstructor);
 			
