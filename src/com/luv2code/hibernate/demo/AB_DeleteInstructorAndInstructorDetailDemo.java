@@ -25,12 +25,17 @@ public class AB_DeleteInstructorAndInstructorDetailDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();			
+			session.beginTransaction();		
+			
+			// call instructor
+			Instructor tempIns = session.get(Instructor.class, 1);
 			
 			// delete
-			int theId = 1;
-			Instructor theInstructor = session.get(Instructor.class, theId);
-			session.delete(theInstructor);
+			int theId = 15;
+			Course thisCourse = session.get(Course.class, theId);
+			thisCourse.setInstructor(tempIns);
+			// theInstructor.getCourses().get(0).setInstructor(null);
+			// session.delete(theInstructor);
 			
 			// commit the transaction
 			session.getTransaction().commit();
