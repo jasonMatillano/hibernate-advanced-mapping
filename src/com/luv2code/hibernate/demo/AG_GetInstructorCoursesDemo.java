@@ -8,7 +8,7 @@ import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class GetInstructorCoursesDemo {
+public class AG_GetInstructorCoursesDemo {
 
 	public static void main(String[] args) {
 		
