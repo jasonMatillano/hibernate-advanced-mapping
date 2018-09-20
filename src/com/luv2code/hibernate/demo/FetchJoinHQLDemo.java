@@ -31,7 +31,7 @@ public class FetchJoinHQLDemo {
 			// option 2: Hibernate query HQL
 			
 			// get instructor from db
-			int theId = 2;
+			int theId = 1;
 			
 			// create a HQL query
 			Query<Instructor> query =
@@ -52,7 +52,7 @@ public class FetchJoinHQLDemo {
 			
 			// close session
 			session.close();
-			System.out.println("luv2code: The seesion is closed:");
+			System.out.println("\nluv2code: The seesion is closed.\n");
 			
 			// option 1: call a getter method while the session is open
 			
