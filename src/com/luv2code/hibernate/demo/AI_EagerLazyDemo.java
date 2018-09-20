@@ -3,13 +3,13 @@ package com.luv2code.hibernate.demo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
 import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
 
-public class FetchJoinHQLDemo {
+public class AI_EagerLazyDemo {
 
 	public static void main(String[] args) {
 		
@@ -19,6 +19,7 @@ public class FetchJoinHQLDemo {
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
 						.addAnnotatedClass(Course.class)
+						.addAnnotatedClass(Review.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -28,33 +29,22 @@ public class FetchJoinHQLDemo {
 			// start transaction
 			session.beginTransaction();
 			
-			// option 2: Hibernate query HQL
-			
 			// get instructor from db
-			int theId = 2;
+			int theId = 20;
+			Instructor tempInstructor = session.get(Instructor.class, theId);
 			
-			// create a HQL query
-			Query<Instructor> query =
-					session.createQuery("select i from Instructor i " 
-										+ "JOIN FETCH i.courses "
-										+ "where i.id=:theInstructorId ", 
-							Instructor.class);
-			
-			// set parameter on query
-			query.setParameter("theInstructorId", theId);
-			
-			// execute query and get the instructor
-			Instructor tempInstructor = query.getSingleResult();
+			// print instructor
 			System.out.println("luv2code: tempInstructor: " + tempInstructor);
+			
+			// option 1: call a getter method while the session is open
+			System.out.println("luv2code: tempInstructorCourses: " + tempInstructor.getCourses());
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
 			// close session
 			session.close();
-			System.out.println("luv2code: The seesion is closed:");
-			
-			// option 1: call a getter method while the session is open
+			System.out.println("\nluv2code: The seesion is closed:\n");
 			
 			// get course for the instructor
 			System.out.println("luv2code: tempInstructorCourses: " + tempInstructor.getCourses());

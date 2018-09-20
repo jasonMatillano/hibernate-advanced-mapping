@@ -1,4 +1,4 @@
-package com.luv2code.hibernate.demo;
+	package com.luv2code.hibernate.demo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,8 +7,9 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
 
-public class GetInstructorCoursesDemo {
+public class AD_DeleteInstructorDetailAndInstructorDemo {
 
 	public static void main(String[] args) {
 		
@@ -18,6 +19,7 @@ public class GetInstructorCoursesDemo {
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
 						.addAnnotatedClass(Course.class)
+						.addAnnotatedClass(Review.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -25,27 +27,37 @@ public class GetInstructorCoursesDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();
+			session.beginTransaction();			
 			
-			// get instructor from db
-			int theId = 1;
-			Instructor tempInstructor = session.get(Instructor.class, theId);
+			// get instructor detail object
+			int theID = 5;
+			InstructorDetail tempInsDetail = 
+					session.get(InstructorDetail.class, theID);
 			
-			// get course for the instructor
-			System.out.println("Instructor: " + tempInstructor);
-			System.out.println("Courses: " + tempInstructor.getCourses());
+			// print instructor detail
+			System.out.println("luv2code to delete : " + tempInsDetail);
+			
+			// print the associated instructor
+			 System.out.println("luv2code to delete : " + tempInsDetail.getInstructor());
+			
+			// delete instructor detail along with instructor
+			session.delete(tempInsDetail); // cascade type should be ALL, or include cascade type REMOVE in  InstructorDetail
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 			
-		} finally {
-			
-			// add clean up code
+		} 
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle connection leaks
 			session.close();
 			
 			factory.close(); 
 		}
 	}
+
 }
