@@ -28,7 +28,7 @@ public class AI_EagerLazyDemo {
 			session.beginTransaction();
 			
 			// get instructor from db
-			int theId = 2;
+			int theId = 1;
 			Instructor tempInstructor = session.get(Instructor.class, theId);
 			
 			// print instructor
@@ -40,7 +40,7 @@ public class AI_EagerLazyDemo {
 			
 			// close session
 			session.close();
-			System.out.println("luv2code: The seesion is closed:");
+			System.out.println("\nluv2code: The seesion is closed.\n");
 			
 			// option 1: call a getter method while the session is open
 			
