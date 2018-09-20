@@ -33,6 +33,8 @@ public class AI_EagerLazyDemo {
 			
 			// print instructor
 			System.out.println("luv2code: tempInstructor: " + tempInstructor);
+			
+			// option 1: call a getter method while the session is open
 			System.out.println("luv2code: tempInstructorCourses: " + tempInstructor.getCourses());
 			
 			// commit the transaction
