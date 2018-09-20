@@ -4,10 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteInstructorDetailDemo {
+public class AD_DeleteInstructorDetailAndInstructorDemo {
 
 	public static void main(String[] args) {
 		
@@ -16,6 +17,7 @@ public class DeleteInstructorDetailDemo {
 						.configure("hibernate.cfg.xml")
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
+						.addAnnotatedClass(Course.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -26,21 +28,18 @@ public class DeleteInstructorDetailDemo {
 			session.beginTransaction();			
 			
 			// get instructor detail object
-			int theID = 12;
+			int theID = 5;
 			InstructorDetail tempInsDetail = 
 					session.get(InstructorDetail.class, theID);
 			
 			// print instructor detail
-			System.out.println(tempInsDetail);
+			System.out.println("luv2code to delete : " + tempInsDetail);
 			
 			// print the associated instructor
-			System.out.println(tempInsDetail.getInstructor());
+			 System.out.println("luv2code to delete : " + tempInsDetail.getInstructor());
 			
-			// remove the link before delete
-			tempInsDetail.getInstructor().setInstructorDetail(null);
-			
-			// delete instructor detail
-			session.delete(tempInsDetail);
+			// delete instructor detail along with instructor
+			session.delete(tempInsDetail); // cascade type should be ALL, or include cascade type REMOVE in  InstructorDetail
 			
 			// commit the transaction
 			session.getTransaction().commit();
