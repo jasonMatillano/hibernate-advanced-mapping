@@ -9,7 +9,7 @@ import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class FetchJoinHQLDemo {
+public class AJ_FetchJoinHQLDemo {
 
 	public static void main(String[] args) {
 		
