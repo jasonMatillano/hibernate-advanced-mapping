@@ -8,7 +8,7 @@ import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class EagerLazyDemo {
+public class AI_EagerLazyDemo {
 
 	public static void main(String[] args) {
 		
@@ -28,11 +28,13 @@ public class EagerLazyDemo {
 			session.beginTransaction();
 			
 			// get instructor from db
-			int theId = 2;
+			int theId = 20;
 			Instructor tempInstructor = session.get(Instructor.class, theId);
 			
 			// print instructor
 			System.out.println("luv2code: tempInstructor: " + tempInstructor);
+			
+			// option 1: call a getter method while the session is open
 			System.out.println("luv2code: tempInstructorCourses: " + tempInstructor.getCourses());
 			
 			// commit the transaction
@@ -40,7 +42,7 @@ public class EagerLazyDemo {
 			
 			// close session
 			session.close();
-			System.out.println("luv2code: The seesion is closed:");
+			System.out.println("\nluv2code: The seesion is closed:\n");
 			
 			// get course for the instructor
 			System.out.println("luv2code: tempInstructorCourses: " + tempInstructor.getCourses());
