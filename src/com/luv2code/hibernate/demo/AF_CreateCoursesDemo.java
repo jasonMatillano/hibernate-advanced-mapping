@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
 
 public class AF_CreateCoursesDemo {
 
@@ -18,6 +19,7 @@ public class AF_CreateCoursesDemo {
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
 						.addAnnotatedClass(Course.class)
+						.addAnnotatedClass(Review.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -28,7 +30,7 @@ public class AF_CreateCoursesDemo {
 			session.beginTransaction();
 			
 			// get instructor from db
-			int theId = 2;
+			int theId = 1;
 			Instructor tempInstructor = session.get(Instructor.class, theId);
 			
 			// create some courses
