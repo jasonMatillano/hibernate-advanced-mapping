@@ -33,9 +33,9 @@ public class CreateCourseAndReviewsDemo {
 			Course tempCourse = new Course("Pacman - How To Score One Million Points3");
 			
 			// add some reviews
-			tempCourse.addReview(new Review("Greate course ... love it!2"));
-			tempCourse.addReview(new Review("Cool course ... love it!2"));
-			tempCourse.addReview(new Review(""));
+			tempCourse.addReview(new Review("Greate course ... love it!"));
+			tempCourse.addReview(new Review("Cool course ... love it!"));
+			tempCourse.addReview(new Review("This is a trash course!"));
 			
 			// save the course ... and leverage the cascade all
 			System.out.println(tempCourse);
