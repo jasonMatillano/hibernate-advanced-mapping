@@ -1,13 +1,18 @@
 package com.luv2code.hibernate.demo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -41,6 +46,11 @@ public class Course {
 	@JoinColumn(name="instructor_id")
 	private Instructor instructor;
 	
+	@OneToMany(	fetch=FetchType.LAZY,
+			mappedBy = "course",
+			cascade = CascadeType.ALL)
+	private List<Review> reviews;
+	
 	public Course () {
 		
 	}
@@ -51,6 +61,14 @@ public class Course {
 
 	public int getId() {
 		return id;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	public void setId(int id) {
@@ -78,5 +96,17 @@ public class Course {
 		return "Course [id=" + id + ", title=" + title + "]";
 	}
 	
+	// add convenience methods for bi-directional relationship
+	
+	public void add(Review tempReview) {
+		
+		if(reviews == null) {
+			reviews = new ArrayList<>();
+		}
+		
+		reviews.add(tempReview);
+		
+		tempReview.setCourse(this);
+	}
 	
 }
