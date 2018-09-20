@@ -4,10 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class CreateDemo {
+public class AB_DeleteInstructorAndInstructorDetailDemo {
 
 	public static void main(String[] args) {
 		
@@ -16,6 +17,7 @@ public class CreateDemo {
 						.configure("hibernate.cfg.xml")
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
+						.addAnnotatedClass(Course.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -23,23 +25,17 @@ public class CreateDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();			
+			session.beginTransaction();		
 			
-			// create the objects
-			Instructor tempInstructor = 
-					new Instructor("Chad1", "Darby", "darbyluv2code.com");
+			// call instructor
+			Instructor tempIns = session.get(Instructor.class, 1);
 			
-			InstructorDetail tempInstructorDetail = 
-					new InstructorDetail(
-							"http://www.luv2code.com","coding and eating");
-			
-			// associate the objects
-			tempInstructor.setInstructorDetail(tempInstructorDetail);
-			
-			// save the instructor
-			session.save(tempInstructor);
-			
-			// note: tempInstructorDetail will also be saved in the database due to cascade setup
+			// delete
+			int theId = 15;
+			Course thisCourse = session.get(Course.class, theId);
+			thisCourse.setInstructor(tempIns);
+			// theInstructor.getCourses().get(0).setInstructor(null);
+			// session.delete(theInstructor);
 			
 			// commit the transaction
 			session.getTransaction().commit();

@@ -8,7 +8,7 @@ import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteCourseDemo {
+public class AC_GetInstructorDetailAndInstructorDemo {
 
 	public static void main(String[] args) {
 		
@@ -25,26 +25,34 @@ public class DeleteCourseDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();
+			session.beginTransaction();			
 			
-			// get course
-			int theId = 10;
-			Course tempCourse = session.get(Course.class, theId);
+			// get instructor detail object
+			int theID = 2;
+			InstructorDetail tempInsDetail = 
+					session.get(InstructorDetail.class, theID);
 			
-			// delete course
-			session.delete(tempCourse);
+			// print instructor detail
+			System.out.println("luv2code : " + tempInsDetail);
+			
+			// print the associated instructor
+			System.out.println("luv2code : " + tempInsDetail.getInstructor());
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 			
-		} finally {
-			
-			// add clean up code
+		} 
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle connection leaks
 			session.close();
 			
 			factory.close(); 
 		}
 	}
+
 }

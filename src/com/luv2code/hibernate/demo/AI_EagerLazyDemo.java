@@ -4,10 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class GetInstructorDetailDemo {
+public class AI_EagerLazyDemo {
 
 	public static void main(String[] args) {
 		
@@ -16,6 +17,7 @@ public class GetInstructorDetailDemo {
 						.configure("hibernate.cfg.xml")
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
+						.addAnnotatedClass(Course.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -23,34 +25,27 @@ public class GetInstructorDetailDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();			
+			session.beginTransaction();
 			
-			// get instructor detail object
-			int theID = 228;
-			InstructorDetail tempInsDetail = 
-					session.get(InstructorDetail.class, theID);
+			// get instructor from db
+			int theId = 2;
+			Instructor tempInstructor = session.get(Instructor.class, theId);
 			
-			// print instructor detail
-			System.out.println(tempInsDetail);
-			
-			// print the associated instructor
-			System.out.println(tempInsDetail.getInstructor());
+			// get course for the instructor
+			System.out.println("luv2code: Instructor: " + tempInstructor);
+			System.out.println("luv2code: Courses: " + tempInstructor.getCourses());
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
-			System.out.println("Done!");
+			System.out.println("luv2code: Done!");
 			
-		} 
-		catch (Exception exc) {
-			exc.printStackTrace();
-		}
-		finally {
-			// handle connection leaks
+		} finally {
+			
+			// add clean up code
 			session.close();
 			
 			factory.close(); 
 		}
 	}
-
 }
