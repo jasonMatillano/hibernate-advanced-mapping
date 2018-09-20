@@ -4,10 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class DeleteDemo {
+public class AF_CreateCoursesDemo {
 
 	public static void main(String[] args) {
 		
@@ -16,6 +17,7 @@ public class DeleteDemo {
 						.configure("hibernate.cfg.xml")
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
+						.addAnnotatedClass(Course.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -23,12 +25,26 @@ public class DeleteDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();			
+			session.beginTransaction();
 			
-			// delete
-			int theId = 1;
-			Instructor theInstructor = session.get(Instructor.class, theId);
-			session.delete(theInstructor);
+			// get instructor from db
+			int theId = 2;
+			Instructor tempInstructor = session.get(Instructor.class, theId);
+			
+			// create some courses
+			Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide4");
+			Course tempCourse2 = new Course("The Pinball MasterClass4");
+			
+			// add courses to instructor
+			tempInstructor.add(tempCourse1);
+			tempInstructor.add(tempCourse2);
+			
+			// save the courses
+			session.save(tempCourse1);
+			session.save(tempCourse2);
+			
+			// show tempInstructor courses
+			System.out.println("luv2code : " + tempInstructor.getCourses());
 			
 			// commit the transaction
 			session.getTransaction().commit();
@@ -36,8 +52,11 @@ public class DeleteDemo {
 			System.out.println("Done!");
 			
 		} finally {
+			
+			// add clean up code
+			session.close();
+			
 			factory.close(); 
 		}
 	}
-
 }
