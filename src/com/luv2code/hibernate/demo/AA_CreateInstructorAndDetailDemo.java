@@ -8,7 +8,7 @@ import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 
-public class CreateCoursesDemo {
+public class AA_CreateInstructorAndDetailDemo {
 
 	public static void main(String[] args) {
 		
@@ -25,35 +25,36 @@ public class CreateCoursesDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();
+			session.beginTransaction();			
 			
-			// get instructor from db
-			int theId = 2;
-			Instructor tempInstructor = session.get(Instructor.class, theId);
+			// create the objects
+			Instructor tempInstructor = 
+					new Instructor("Chad1", "Darby", "darbyluv2code.com");
 			
-			// create some courses
-			Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide4");
-			Course tempCourse2 = new Course("The Pinball MasterClass4");
+			InstructorDetail tempInstructorDetail = 
+					new InstructorDetail(
+							"http://www.luv2code.com","coding and eating");
 			
-			// add courses to instructor
-			tempInstructor.add(tempCourse1);
-			tempInstructor.add(tempCourse2);
+			// associate the objects
+			tempInstructor.setInstructorDetail(tempInstructorDetail);
 			
-			// save the courses
-			session.save(tempCourse1);
-			session.save(tempCourse2);
+			// save the instructor
+			session.save(tempInstructor);
+			
+			// note: tempInstructorDetail will also be saved in the database due to cascade setup
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
+			// show created objects
+			System.out.println("luv2code created : " + tempInstructor);
+			System.out.println("luv2code created : " + tempInstructor.getInstructorDetail());
+			
 			System.out.println("Done!");
 			
 		} finally {
-			
-			// add clean up code
-			session.close();
-			
 			factory.close(); 
 		}
 	}
+
 }
