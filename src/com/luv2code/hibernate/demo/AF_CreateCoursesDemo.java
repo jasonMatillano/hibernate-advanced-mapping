@@ -9,7 +9,7 @@ import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Review;
 
-public class CreateCourseAndReviewsDemo {
+public class AF_CreateCoursesDemo {
 
 	public static void main(String[] args) {
 		
@@ -29,18 +29,24 @@ public class CreateCourseAndReviewsDemo {
 			// start transaction
 			session.beginTransaction();
 			
-			// create a course 
-			Course tempCourse = new Course("Pacman - How To Score One Million Points3");
+			// get instructor from db
+			int theId = 2;
+			Instructor tempInstructor = session.get(Instructor.class, theId);
 			
-			// add some reviews
-			tempCourse.addReview(new Review("Greate course ... love it!2"));
-			tempCourse.addReview(new Review("Cool course ... love it!2"));
-			tempCourse.addReview(new Review(""));
+			// create some courses
+			Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide2");
+			Course tempCourse2 = new Course("The Pinball MasterClass2");
 			
-			// save the course ... and leverage the cascade all
-			System.out.println(tempCourse);
-			System.out.println(tempCourse.getReviews());
-			session.save(tempCourse);
+			// add courses to instructor
+			tempInstructor.add(tempCourse1);
+			tempInstructor.add(tempCourse2);
+			
+			// save the courses
+			session.save(tempCourse1);
+			session.save(tempCourse2);
+			
+			// show tempInstructor courses
+			System.out.println("luv2code : " + tempInstructor.getCourses());
 			
 			// commit the transaction
 			session.getTransaction().commit();

@@ -9,7 +9,7 @@ import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Review;
 
-public class GetCourseAndReviewsDemo {
+public class AG_GetInstructorCoursesDemo {
 
 	public static void main(String[] args) {
 		
@@ -29,13 +29,13 @@ public class GetCourseAndReviewsDemo {
 			// start transaction
 			session.beginTransaction();
 			
-			// get course from db
-			int theId = 10;
-			Course tempCourse = session.get(Course.class, theId);
+			// get instructor from db
+			int theId = 1;
+			Instructor tempInstructor = session.get(Instructor.class, theId);
 			
-			// get reviews form course
-			System.out.println("luv2code tempCourse : " + tempCourse);
-			System.out.println("luv2code tempCourseReviews : " + tempCourse.getReviews());
+			// get course for the instructor
+			System.out.println("Instructor: " + tempInstructor);
+			System.out.println("Courses: " + tempInstructor.getCourses());
 			
 			// commit the transaction
 			session.getTransaction().commit();

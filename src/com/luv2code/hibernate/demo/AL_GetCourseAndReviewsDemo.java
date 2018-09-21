@@ -4,10 +4,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
 
-public class CreateDemo {
+public class AL_GetCourseAndReviewsDemo {
 
 	public static void main(String[] args) {
 		
@@ -16,6 +18,8 @@ public class CreateDemo {
 						.configure("hibernate.cfg.xml")
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
+						.addAnnotatedClass(Course.class)
+						.addAnnotatedClass(Review.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -23,23 +27,15 @@ public class CreateDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();			
+			session.beginTransaction();
 			
-			// create the objects
-			Instructor tempInstructor = 
-					new Instructor("Chad1", "Darby", "darbyluv2code.com");
+			// get course from db
+			int theId = 15;
+			Course tempCourse = session.get(Course.class, theId);
 			
-			InstructorDetail tempInstructorDetail = 
-					new InstructorDetail(
-							"http://www.luv2code.com","coding and eating");
-			
-			// associate the objects
-			tempInstructor.setInstructorDetail(tempInstructorDetail);
-			
-			// save the instructor
-			session.save(tempInstructor);
-			
-			// note: tempInstructorDetail will also be saved in the database due to cascade setup
+			// get reviews form course
+			System.out.println("luv2code tempCourse : " + tempCourse);
+			System.out.println("luv2code tempCourseReviews : " + tempCourse.getReviews());
 			
 			// commit the transaction
 			session.getTransaction().commit();
@@ -47,8 +43,11 @@ public class CreateDemo {
 			System.out.println("Done!");
 			
 		} finally {
+			
+			// add clean up code
+			session.close();
+			
 			factory.close(); 
 		}
 	}
-
 }

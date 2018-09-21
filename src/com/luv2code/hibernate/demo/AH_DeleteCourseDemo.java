@@ -4,10 +4,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
 
-public class DeleteDemo {
+public class AH_DeleteCourseDemo {
 
 	public static void main(String[] args) {
 		
@@ -16,6 +18,8 @@ public class DeleteDemo {
 						.configure("hibernate.cfg.xml")
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
+						.addAnnotatedClass(Course.class)
+						.addAnnotatedClass(Review.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -23,12 +27,14 @@ public class DeleteDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();			
+			session.beginTransaction();
 			
-			// delete
-			int theId = 1;
-			Instructor theInstructor = session.get(Instructor.class, theId);
-			session.delete(theInstructor);
+			// get course
+			int theId = 10;
+			Course tempCourse = session.get(Course.class, theId);
+			
+			// delete course
+			session.delete(tempCourse);
 			
 			// commit the transaction
 			session.getTransaction().commit();
@@ -36,8 +42,11 @@ public class DeleteDemo {
 			System.out.println("Done!");
 			
 		} finally {
+			
+			// add clean up code
+			session.close();
+			
 			factory.close(); 
 		}
 	}
-
 }
