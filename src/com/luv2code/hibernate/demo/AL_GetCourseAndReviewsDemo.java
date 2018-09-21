@@ -9,7 +9,7 @@ import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Review;
 
-public class GetCourseAndReviewsDemo {
+public class AL_GetCourseAndReviewsDemo {
 
 	public static void main(String[] args) {
 		
@@ -30,7 +30,7 @@ public class GetCourseAndReviewsDemo {
 			session.beginTransaction();
 			
 			// get course from db
-			int theId = 10;
+			int theId = 15;
 			Course tempCourse = session.get(Course.class, theId);
 			
 			// get reviews form course
