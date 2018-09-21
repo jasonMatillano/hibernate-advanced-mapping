@@ -7,8 +7,9 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
 
-public class EagerLazyDemo {
+public class AK_CreateCourseAndReviewsDemo {
 
 	public static void main(String[] args) {
 		
@@ -18,6 +19,7 @@ public class EagerLazyDemo {
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
 						.addAnnotatedClass(Course.class)
+						.addAnnotatedClass(Review.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -27,25 +29,23 @@ public class EagerLazyDemo {
 			// start transaction
 			session.beginTransaction();
 			
-			// get instructor from db
-			int theId = 2;
-			Instructor tempInstructor = session.get(Instructor.class, theId);
+			// create a course 
+			Course tempCourse = new Course("Pacman - How To Score One Million Points4");
 			
-			// print instructor
-			System.out.println("luv2code: tempInstructor: " + tempInstructor);
-			System.out.println("luv2code: tempInstructorCourses: " + tempInstructor.getCourses());
+			// add some reviews
+			tempCourse.addReview(new Review("Greate course ... love it!"));
+			tempCourse.addReview(new Review("Cool course ... love it!"));
+			tempCourse.addReview(new Review("This is a trash course!"));
+			
+			// save the course ... and leverage the cascade all
+			System.out.println("luv2code : "  + tempCourse);
+			System.out.println("luv2code : "  + tempCourse.getReviews());
+			session.save(tempCourse);
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
-			// close session
-			session.close();
-			System.out.println("luv2code: The seesion is closed:");
-			
-			// get course for the instructor
-			System.out.println("luv2code: tempInstructorCourses: " + tempInstructor.getCourses());
-				
-			System.out.println("luv2code: Done!");
+			System.out.println("Done!");
 			
 		} finally {
 			

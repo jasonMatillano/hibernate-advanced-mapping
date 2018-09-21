@@ -4,10 +4,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
 
-public class GetInstructorDetailDemo {
+public class AB_DeleteInstructorAndInstructorDetailDemo {
 
 	public static void main(String[] args) {
 		
@@ -16,6 +18,8 @@ public class GetInstructorDetailDemo {
 						.configure("hibernate.cfg.xml")
 						.addAnnotatedClass(Instructor.class)
 						.addAnnotatedClass(InstructorDetail.class)
+						.addAnnotatedClass(Course.class)
+						.addAnnotatedClass(Review.class)
 						.buildSessionFactory();
 		
 		// create session
@@ -23,32 +27,24 @@ public class GetInstructorDetailDemo {
 		
 		try {
 			// start transaction
-			session.beginTransaction();			
+			session.beginTransaction();		
 			
-			// get instructor detail object
-			int theID = 228;
-			InstructorDetail tempInsDetail = 
-					session.get(InstructorDetail.class, theID);
+			// call instructor
+			Instructor tempIns = session.get(Instructor.class, 1);
 			
-			// print instructor detail
-			System.out.println(tempInsDetail);
-			
-			// print the associated instructor
-			System.out.println(tempInsDetail.getInstructor());
+			// delete
+			int theId = 15;
+			Course thisCourse = session.get(Course.class, theId);
+			thisCourse.setInstructor(tempIns);
+			// theInstructor.getCourses().get(0).setInstructor(null);
+			// session.delete(theInstructor);
 			
 			// commit the transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 			
-		} 
-		catch (Exception exc) {
-			exc.printStackTrace();
-		}
-		finally {
-			// handle connection leaks
-			session.close();
-			
+		} finally {
 			factory.close(); 
 		}
 	}
